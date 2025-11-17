@@ -1066,27 +1066,27 @@
             overlay.classList.remove('active');
         });
 
-        // Toggle mobile menu
+        // Toggle mobile menu - FIXED
         mobileMenu.addEventListener('click', () => {
-            nav.classList.add('active');
-            navOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
+            nav.classList.toggle('active');
+            navOverlay.classList.toggle('active');
+            document.body.style.overflow = nav.classList.contains('active') ? 'hidden' : 'auto';
         });
 
-        navOverlay.addEventListener('click', closeMobileMenu);
-
-        function closeMobileMenu() {
+        navOverlay.addEventListener('click', () => {
             nav.classList.remove('active');
             navOverlay.classList.remove('active');
             document.body.style.overflow = 'auto';
-        }
+        });
 
         // Close mobile menu when clicking on links
         const navLinks = document.querySelectorAll('nav ul li a');
         navLinks.forEach(link => {
             link.addEventListener('click', () => {
                 if (window.innerWidth <= 768) {
-                    closeMobileMenu();
+                    nav.classList.remove('active');
+                    navOverlay.classList.remove('active');
+                    document.body.style.overflow = 'auto';
                 }
             });
         });
@@ -1295,7 +1295,9 @@
                     
                     // Close mobile menu if open
                     if (window.innerWidth <= 768) {
-                        closeMobileMenu();
+                        nav.classList.remove('active');
+                        navOverlay.classList.remove('active');
+                        document.body.style.overflow = 'auto';
                     }
                 }
             });
